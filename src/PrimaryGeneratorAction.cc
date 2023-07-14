@@ -1,39 +1,21 @@
 #include "PrimaryGeneratorAction.hh"
-#include "PrimaryGeneratorMessenger.hh"
 
 #include "G4Event.hh"
-#include "G4ParticleGun.hh"
 #include "HepMCG4AsciiReader.hh"
 
-PrimaryGeneratorAction::PrimaryGeneratorAction() : G4VUserPrimaryGeneratorAction()
+PrimaryGeneratorAction::PrimaryGeneratorAction()
 {
-    // default generator is particle gun.
-    fCurrentGenerator = fParticleGun= new G4ParticleGun();
-    fCurrentGeneratorName = "fParticleGun";
-    fHepmcAscii = new HepMCG4AsciiReader();
-    #ifdef G4LIB_USE_PYTHIA
-    fPythiaGen = new HepMCG4PythiaInterface();
-    #else
-    fPythiaGen = 0;
-    #endif
-    fGentypeMap["particleGun"] = fParticleGun;
-    fGentypeMap["hepmcAscii"] = fHepmcAscii;
-    fGentypeMap["pythia"] = fPythiaGen;
-
-    fMessenger= new PrimaryGeneratorMessenger(this);
+	//primary generator creates initial particles and vertexes as instructed from Ascii file reader
+	asciiInput = new HepMCG4AsciiReader();
 }
 
-
-PrimaryGeneratorAction::~PrimaryGeneratorAction()
-{
-    delete fMessenger;
+PrimaryGeneratorAction::~PrimaryGeneratorAction(){
+	delete asciiInput;
 }
 
-
-void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
+void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
 {
-    if(fCurrentGenerator)
-        fCurrentGenerator-> GeneratePrimaryVertex(anEvent);
-    else
-        G4Exception("PrimaryGeneratorAction::GeneratePrimaries", "PrimaryGeneratorAction001", FatalException, "generator is not instanciated." );
+	//before generating primaries, initialize the ascii input reader (be sure to update the file name)
+	asciiInput->Initialize();
+	asciiInput->GeneratePrimaryVertex(anEvent);
 }
