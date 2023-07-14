@@ -4,8 +4,6 @@
 #include "G4Event.hh"
 #include "G4ParticleGun.hh"
 #include "HepMCG4AsciiReader.hh"
-#include "HepMCG4PythiaInterface.hh"
-
 
 PrimaryGeneratorAction::PrimaryGeneratorAction() : G4VUserPrimaryGeneratorAction()
 {

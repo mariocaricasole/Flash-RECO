@@ -155,7 +155,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
         z = 0.*cm;
         G4RotationMatrix rm;
         rm.rotateZ(phi);
-        muoncounter_phys = new G4PVPlacement(G4Transform3D(rm,G4ThreeVector(x,y,z), muoncounter_log, "muoncounter_P", experimentalHall_log,false,i);
+        muoncounter_phys = new G4PVPlacement(G4Transform3D(rm,G4ThreeVector(x,y,z)), muoncounter_log, "muoncounter_P", experimentalHall_log,false,i);
     }
     G4VisAttributes* muoncounter_logVisAtt = new G4VisAttributes(G4Colour(0.0,1.0,1.0));
     muoncounter_logVisAtt->SetForceWireframe(true);

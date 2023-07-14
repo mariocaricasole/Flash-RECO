@@ -18,18 +18,13 @@
 
 int main(int argc,char** argv)
 {
-    // Instantiate G4UIExecutive if there are no arguments (interactive mode)
-    G4UIExecutive* ui = nullptr;
-    if ( argc == 1 ) {
-        ui = new G4UIExecutive(argc, argv);
-    }
 
     // User Verbose output class
     G4VSteppingVerbose* verbosity = new SteppingVerbose;
     G4VSteppingVerbose::SetInstance(verbosity);
 
     // Serial only Run manager
-    auto* runManager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::SerialOnly);
+    G4RunManager *runManager = new G4RunManager();
 
     // User Initialization classes (mandatory)
     G4VUserDetectorConstruction* detector = new DetectorConstruction;
@@ -59,24 +54,32 @@ int main(int argc,char** argv)
     G4UserSteppingAction* stepping_action = new SteppingAction;
     runManager->SetUserAction(stepping_action);
 
-    G4VisManager* visManager = new G4VisExecutive;
+    G4UIExecutive *ui = 0;
+
+    if(argc==1)
+    {
+        ui = new G4UIExecutive(argc, argv);
+    }
+
+    //visualization manager
+    G4VisManager *visManager = new G4VisExecutive();
     visManager->Initialize();
 
-    //get the pointer to the User Interface manager
-    G4UImanager* UImanager = G4UImanager::GetUIpointer();
+    //user interface manager
+    G4UImanager *UImanager = G4UImanager::GetUIpointer();
 
-    if (!ui)   // batch mode
-        {
-        visManager->SetVerboseLevel("quiet");
-        G4String command = "/control/execute ";
+    //if no argument is passed, use visualization mode, otherwise go to batch mode
+    if(ui)
+    {
+        UImanager->ApplyCommand("/control/execute vis.mac");
+        ui->SessionStart();
+    }
+    else
+    {
+        G4String command = "/control/execute/ ";
         G4String fileName = argv[1];
         UImanager->ApplyCommand(command+fileName);
-        }
-    else
-        {  // interactive mode : define UI session
-        ui->SessionStart();
-        delete ui;
-        }
+    }
 
     // Free the store: user actions, physics_list and detector_description are
     //                 owned and deleted by the run manager, so they should not

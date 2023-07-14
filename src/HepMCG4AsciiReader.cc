@@ -1,15 +1,10 @@
 #include "HepMCG4AsciiReader.hh"
-#include "HepMCG4AsciiReaderMessenger.hh"
 
-#include <iostream>
-#include <fstream>
-
-
-HepMCG4AsciiReader::HepMCG4AsciiReader() :  filename("xxx.dat"), verbose(0)
+HepMCG4AsciiReader::HepMCG4AsciiReader()
 {
-    asciiInput= new HepMC::IO_GenEvent(filename.c_str(), std::ios::in);
-
-    messenger= new HepMCG4AsciiReaderMessenger(this);
+    //define new HepMC3 ascii reader and UI messenger
+    asciiInput = new HepMC3::ReaderAscii(fileName);
+    messenger = new HepMCG4AsciiReaderMessenger(this);
 }
 
 
@@ -20,22 +15,20 @@ HepMCG4AsciiReader::~HepMCG4AsciiReader()
 }
 
 
+//delete old HepMC3 ascii reader and create a new one with the current filename
 void HepMCG4AsciiReader::Initialize()
 {
     delete asciiInput;
-
-    asciiInput= new HepMC::IO_GenEvent(filename.c_str(), std::ios::in);
+    asciiInput = new HepMC3::ReaderAscii(fileName);
 }
 
 
-HepMC::GenEvent* HepMCG4AsciiReader::GenerateHepMCEvent()
+//generate new HepMC3Event from the file, reading the next event (if present)
+HepMC3::GenEvent *HepMCG4AsciiReader::GenerateHepMC3Event()
 {
-    HepMC::GenEvent* evt= asciiInput-> read_next_event();
-    if(!evt)
-        return 0; // no more event
-
-    if(verbose>0)
-        evt-> print();
+    HepMC3::GenEvent *evt = new HepMC3::GenEvent();
+    asciiInput->read_event((*evt));
+    if(!(evt))    return 0;
 
     return evt;
 }

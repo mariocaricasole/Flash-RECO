@@ -1,58 +1,35 @@
-#ifndef HEPMC_G4_ASCII_READER_H
-#define HEPMC_G4_ASCII_READER_H
+#ifndef HEPMC_G4_ASCII_READER_HH
+#define HEPMC_G4_ASCII_READER_HH
 
 #include "HepMCG4Interface.hh"
-#include "HepMC/IO_GenEvent.h"
+#include "HepMCG4AsciiReaderMessenger.hh"
 
-class HepMCG4AsciiReaderMessenger;
+#include "HepMC3/ReaderAscii.h"
 
-class HepMCG4AsciiReader : public HepMCG4Interface {
-protected:
-    G4String filename;
-    HepMC::IO_GenEvent* asciiInput;
+#include <iostream>
+#include <fstream>
 
-    G4int verbose;
-    HepMCG4AsciiReaderMessenger* messenger;
-
-    virtual HepMC::GenEvent* GenerateHepMCEvent();
-
+class HepMCG4AsciiReader : public HepMCG4Interface
+{
 public:
     HepMCG4AsciiReader();
     ~HepMCG4AsciiReader();
-
-    // set/get methods
-    void SetFileName(G4String name);
-    G4String GetFileName() const;
-
-    void SetVerboseLevel(G4int i);
-    G4int GetVerboseLevel() const;
-
-    // methods...
+    
+    //(re)initialize ascii reader
     void Initialize();
+
+    //getter and setter of file name
+    inline G4String GetFileName() {return fileName; }
+    inline void SetFileName(G4String name) {fileName = name; }
+
+private:
+    G4String fileName;
+
+    //ascii reader from HepMC3 and custom UI messenger to change file name
+    HepMC3::ReaderAscii *asciiInput;
+    HepMCG4AsciiReaderMessenger *messenger;
+
+    //generate HepMC3 event
+    virtual HepMC3::GenEvent* GenerateHepMC3Event();
 };
-
-// ====================================================================
-// inline functions
-// ====================================================================
-
-inline void HepMCG4AsciiReader::SetFileName(G4String name)
-{
-    filename= name;
-}
-
-inline G4String HepMCG4AsciiReader::GetFileName() const
-{
-    return filename;
-}
-
-inline void HepMCG4AsciiReader::SetVerboseLevel(G4int i)
-{
-    verbose= i;
-}
-
-inline G4int HepMCG4AsciiReader::GetVerboseLevel() const
-{
-    return verbose;
-}
-
 #endif
