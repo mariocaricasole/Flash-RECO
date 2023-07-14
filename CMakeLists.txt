@@ -9,19 +9,16 @@ find_package(HepMC3 3.2.6 REQUIRED)
 
 include(${Geant4_USE_FILE})
 
-include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/src)
+include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/data)
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
+file(GLOB DATA_FILES ${PROJECT_SOURCE_DIR}/data/*.dat)
 
 file(GLOB MACRO_FILES
 	"*.mac"
 )
 
 file(COPY ${MACRO_FILES} DESTINATION ${PROJECT_BINARY_DIR})
-
-file(GLOB DATA_FILES
-	"*.dat"
-)
 
 file(COPY ${DATA_FILES} DESTINATION ${PROJECT_BINARY_DIR})
 
