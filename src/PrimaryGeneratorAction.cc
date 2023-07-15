@@ -1,8 +1,5 @@
 #include "PrimaryGeneratorAction.hh"
 
-#include "G4Event.hh"
-#include "HepMCG4AsciiReader.hh"
-
 PrimaryGeneratorAction::PrimaryGeneratorAction()
 {
 	//primary generator creates initial particles and vertexes as instructed from Ascii file reader

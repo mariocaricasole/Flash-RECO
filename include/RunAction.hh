@@ -2,9 +2,9 @@
 #define RUN_ACTION_HH
 
 #include "G4UserRunAction.hh"
+#include "G4Run.hh"
+#include "G4RunManager.hh"
 #include "globals.hh"
-
-class G4Run;
 
 class RunAction : public G4UserRunAction {
 public:

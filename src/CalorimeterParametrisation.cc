@@ -1,27 +1,23 @@
-#include "G4SystemOfUnits.hh"
-#include "G4ThreeVector.hh"
-#include "G4Tubs.hh"
-#include "G4VPhysicalVolume.hh"
 #include "CalorimeterParametrisation.hh"
 
-
+//constructor, importing parameters values
 CalorimeterParametrisation::CalorimeterParametrisation() : G4VPVParameterisation()
 {
-#include "DetectorParameterDef.icc"
+    #include "DetectorParameterDef.icc"
 }
 
-
+//destructor
 CalorimeterParametrisation::~CalorimeterParametrisation()
 {}
 
-
+//compute transformation to place daughter volume
 void CalorimeterParametrisation::ComputeTransformation(const G4int, G4VPhysicalVolume* physVol) const
 {
     G4ThreeVector origin;
     physVol-> SetTranslation(origin);
 }
 
-
+//compute dimensions of daughter volume
 void CalorimeterParametrisation::ComputeDimensions(G4Tubs& calorimeterLayer, const G4int copyNo, const G4VPhysicalVolume*) const
 {
     G4double innerRad = fcaloTubs_rmin + copyNo * (fabsorber_thick + fscinti_thick);

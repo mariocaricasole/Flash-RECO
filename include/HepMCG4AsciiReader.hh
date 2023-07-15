@@ -2,12 +2,15 @@
 #define HEPMC_G4_ASCII_READER_HH
 
 #include "HepMCG4Interface.hh"
-#include "HepMCG4AsciiReaderMessenger.hh"
 
 #include "HepMC3/ReaderAscii.h"
 
 #include <iostream>
 #include <fstream>
+
+//dummy class to avoid warnings
+class HepMCG4AsciiReaderMessenger;
+
 
 class HepMCG4AsciiReader : public HepMCG4Interface
 {

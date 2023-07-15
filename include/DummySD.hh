@@ -2,7 +2,7 @@
 #define DUMMY_SD_HH
 
 #include "G4VSensitiveDetector.hh"
-class G4Step;
+#include "G4Step.hh"
 
 class DummySD : public G4VSensitiveDetector {
 public:
@@ -17,9 +17,7 @@ public:
     virtual void PrintAll() {}
 };
 
-DummySD::DummySD()
-  : G4VSensitiveDetector("dummySD")
-{
-}
+DummySD::DummySD() : G4VSensitiveDetector("dummySD")
+{}
 
 #endif

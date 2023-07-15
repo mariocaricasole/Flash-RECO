@@ -2,11 +2,11 @@
 #define TRACKER_SD_HH
 
 #include "G4VSensitiveDetector.hh"
-#include "TrackerHit.hh"
+#include "G4Step.hh"
+#include "G4HCofThisEvent.hh"
+#include "G4TouchableHistory.hh"
 
-class G4Step;
-class G4HCofThisEvent;
-class G4TouchableHistory;
+#include "TrackerHit.hh"
 
 class TrackerSD : public G4VSensitiveDetector {
 public:

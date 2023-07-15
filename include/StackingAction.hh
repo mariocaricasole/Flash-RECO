@@ -4,10 +4,20 @@
 #include "globals.hh"
 #include "G4ThreeVector.hh"
 #include "G4UserStackingAction.hh"
+#include "G4SDManager.hh"
+#include "G4RunManager.hh"
+#include "G4Event.hh"
+#include "G4HCofThisEvent.hh"
+#include "G4Track.hh"
+#include "G4TrackStatus.hh"
+#include "G4ParticleDefinition.hh"
+#include "G4ParticleTypes.hh"
+#include "G4SystemOfUnits.hh"
+
 #include "TrackerHit.hh"
 #include "MuonHit.hh"
 
-class G4Track;
+//dummy class to avoid warnings
 class StackingActionMessenger;
 
 class StackingAction : public G4UserStackingAction {

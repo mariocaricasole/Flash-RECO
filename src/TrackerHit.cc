@@ -1,20 +1,12 @@
 #include "TrackerHit.hh"
-#include "G4VVisManager.hh"
-#include "G4Circle.hh"
-#include "G4Colour.hh"
-#include "G4VisAttributes.hh"
 
-
+//defining the allocator
 G4Allocator<TrackerHit> TrackerHitAllocator;
 
 
+//constructors
 TrackerHit::TrackerHit() : G4VHit(), fEdep(0.), fPos()
 {}
-
-
-TrackerHit::~TrackerHit()
-{}
-
 
 TrackerHit::TrackerHit(const TrackerHit &right) : G4VHit()
 {
@@ -23,6 +15,12 @@ TrackerHit::TrackerHit(const TrackerHit &right) : G4VHit()
 }
 
 
+//destructor
+TrackerHit::~TrackerHit()
+{}
+
+
+//assign/compare operators
 const TrackerHit& TrackerHit::operator=(const TrackerHit &right)
 {
     fEdep = right.fEdep;
@@ -30,13 +28,13 @@ const TrackerHit& TrackerHit::operator=(const TrackerHit &right)
     return *this;
 }
 
-
 G4bool TrackerHit::operator==(const TrackerHit &right) const
 {
     return (this==&right) ? true : false;
 }
 
 
+//Draw method to show the hits in the interactive mode
 void TrackerHit::Draw()
 {
     G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();

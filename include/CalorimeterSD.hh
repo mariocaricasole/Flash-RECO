@@ -2,13 +2,21 @@
 #define CALORIMETER_SD_HH
 
 #include "G4VSensitiveDetector.hh"
+#include "G4ios.hh"
+#include "G4LogicalVolume.hh"
+#include "G4ParticleDefinition.hh"
+#include "G4Step.hh"
+#include "G4SystemOfUnits.hh"
+#include "G4TouchableHistory.hh"
+#include "G4Track.hh"
+#include "G4VPhysicalVolume.hh"
+#include "G4VTouchable.hh"
+
 #include "CalorimeterHit.hh"
-class G4Step;
-class G4HCofThisEvent;
-class G4TouchableHistory;
 
 class CalorimeterSD : public G4VSensitiveDetector {
 public:
+    //constructor/destructor
     CalorimeterSD(G4String name);
     ~CalorimeterSD();
 
@@ -21,6 +29,7 @@ public:
 
 private:
     CalorimeterHitsCollection* fCalCollection;
+
     int fCellID[20][48];
     const int fnumberOfCellsInZ;
     const int fnumberOfCellsInPhi;

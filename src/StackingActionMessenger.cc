@@ -1,9 +1,5 @@
 #include "StackingActionMessenger.hh"
 #include "StackingAction.hh"
-#include "G4UIcmdWithAnInteger.hh"
-#include "G4UIcmdWithADoubleAndUnit.hh"
-#include "G4ios.hh"
-
 
 StackingActionMessenger::StackingActionMessenger(StackingAction * msa) : G4UImessenger(), fMyAction(msa)
 {

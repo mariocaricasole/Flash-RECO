@@ -1,21 +1,3 @@
-#include "G4Box.hh"
-#include "G4Colour.hh"
-#include "G4Element.hh"
-#include "G4NistManager.hh"
-#include "G4FieldManager.hh"
-#include "G4LogicalVolume.hh"
-#include "G4Material.hh"
-#include "G4MaterialTable.hh"
-#include "G4PVParameterised.hh"
-#include "G4PVPlacement.hh"
-#include "G4ThreeVector.hh"
-#include "G4Tubs.hh"
-#include "G4RotationMatrix.hh"
-#include "G4Transform3D.hh"
-#include "G4TransportationManager.hh"
-#include "G4SDManager.hh"
-#include "G4SystemOfUnits.hh"
-#include "G4VisAttributes.hh"
 #include "CalorimeterParametrisation.hh"
 #include "CalorimeterROGeometry.hh"
 #include "CalorimeterSD.hh"
@@ -29,7 +11,7 @@
 
 DetectorConstruction::DetectorConstruction() : G4VUserDetectorConstruction()
 {
-#include "DetectorParameterDef.icc"
+    #include "DetectorParameterDef.icc"
 }
 
 
@@ -93,6 +75,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     G4Box* experimentalHall_box = new G4Box("expHall_b", fexpHall_x, fexpHall_y, fexpHall_z);
     G4LogicalVolume* experimentalHall_log = new G4LogicalVolume(experimentalHall_box, fAir,"expHall_L", 0,0,0);
     G4VPhysicalVolume * experimentalHall_phys = new G4PVPlacement(0, G4ThreeVector(), experimentalHall_log, "expHall_P", 0, false,0);
+
     G4VisAttributes* experimentalHallVisAtt = new G4VisAttributes(G4Colour(1.,1.,1.));
     experimentalHallVisAtt-> SetForceWireframe(true);
     experimentalHall_log-> SetVisAttributes(experimentalHallVisAtt);
@@ -102,19 +85,18 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     G4LogicalVolume* tracker_log = new G4LogicalVolume(tracker_tubs, fAr,"trackerT_L",0,0,0);
     // G4VPhysicalVolume * tracker_phys =
     new G4PVPlacement(0,G4ThreeVector(), tracker_log, "tracker_phys", experimentalHall_log, false, 0);
+
     G4VisAttributes* tracker_logVisAtt = new G4VisAttributes(G4Colour(1.0,0.0,1.0));
     tracker_logVisAtt->SetForceWireframe(true);
     tracker_log->SetVisAttributes(tracker_logVisAtt);
 
     //------------------------------ tracker layers
-    // As an example for Parameterised volume
-    // dummy values for G4Tubs -- modified by parameterised volume
     G4VSolid* trackerLayer_tubs = new G4Tubs("trackerLayer_tubs", ftrkTubs_rmin, ftrkTubs_rmax, ftrkTubs_dz, ftrkTubs_sphi, ftrkTubs_dphi);
     G4LogicalVolume* trackerLayer_log = new G4LogicalVolume(trackerLayer_tubs, fSilicon,"trackerB_L",0,0,0);
     G4VPVParameterisation* trackerParam = new TrackerParametrisation;
-    // dummy value : kXAxis -- modified by parameterised volume
     // G4VPhysicalVolume *trackerLayer_phys =
     new G4PVParameterised("trackerLayer_phys", trackerLayer_log, tracker_log, kXAxis, fnotrkLayers, trackerParam);
+
     G4VisAttributes* trackerLayer_logVisAtt= new G4VisAttributes(G4Colour(0.5,0.0,1.0));
     trackerLayer_logVisAtt->SetForceWireframe(true);
     trackerLayer_log->SetVisAttributes(trackerLayer_logVisAtt);
@@ -124,25 +106,23 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     G4LogicalVolume* calorimeter_log = new G4LogicalVolume(calorimeter_tubs, fScinti, "caloT_L",0,0,0);
     // G4VPhysicalVolume * calorimeter_phys =
     new G4PVPlacement(0,G4ThreeVector(), calorimeter_log, "caloM_P",experimentalHall_log, false,0);
+
     G4VisAttributes* calorimeter_logVisATT= new G4VisAttributes(G4Colour(1.0,1.0,0.0));
     calorimeter_logVisATT->SetForceWireframe(true);
     calorimeter_log->SetVisAttributes(calorimeter_logVisATT);
 
     //------------------------------- Lead layers
-    // As an example for Parameterised volume
-    // dummy values for G4Tubs -- modified by parameterised volume
     G4VSolid* caloLayer_tubs = new G4Tubs("caloLayer_tubs", fcaloRing_rmin, fcaloRing_rmax, fcaloRing_dz, fcaloRing_sphi, fcaloRing_dphi);
     G4LogicalVolume* caloLayer_log = new G4LogicalVolume(caloLayer_tubs, fLead, "caloR_L",0,0,0);
     G4VPVParameterisation* calorimeterParam = new CalorimeterParametrisation;
-    // dummy value : kXAxis -- modified by parameterised volume
     // G4VPhysicalVolume * caloLayer_phys =
     new G4PVParameterised("caloLayer_phys",caloLayer_log,calorimeter_log, kXAxis, fnocaloLayers, calorimeterParam);
+
     G4VisAttributes* caloLayer_logVisAtt = new G4VisAttributes(G4Colour(0.7,1.0,0.0));
     caloLayer_logVisAtt->SetForceWireframe(true);
     caloLayer_log->SetVisAttributes(caloLayer_logVisAtt);
 
     //------------------------------ muon counters
-    // As an example of CSG volumes with rotation
     G4VSolid* muoncounter_box = new G4Box("muoncounter_box", fmuBox_width, fmuBox_thick, fmuBox_length);
     G4LogicalVolume* muoncounter_log = new G4LogicalVolume(muoncounter_box, fScinti, "mucounter_L",0,0,0);
     G4VPhysicalVolume* muoncounter_phys;
@@ -157,6 +137,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
         rm.rotateZ(phi);
         muoncounter_phys = new G4PVPlacement(G4Transform3D(rm,G4ThreeVector(x,y,z)), muoncounter_log, "muoncounter_P", experimentalHall_log,false,i);
     }
+
     G4VisAttributes* muoncounter_logVisAtt = new G4VisAttributes(G4Colour(0.0,1.0,1.0));
     muoncounter_logVisAtt->SetForceWireframe(true);
     muoncounter_log->SetVisAttributes(muoncounter_logVisAtt);

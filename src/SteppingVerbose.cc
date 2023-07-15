@@ -1,8 +1,5 @@
 #include "SteppingVerbose.hh"
 
-#include "G4SteppingManager.hh"
-#include "G4UnitsTable.hh"
-
 
 SteppingVerbose::SteppingVerbose() : G4SteppingVerbose()
 {}

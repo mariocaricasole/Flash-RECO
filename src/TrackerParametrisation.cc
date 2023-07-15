@@ -1,21 +1,18 @@
-#include "G4SystemOfUnits.hh"
-#include "G4ThreeVector.hh"
-#include "G4Tubs.hh"
-#include "G4VPhysicalVolume.hh"
 #include "TrackerParametrisation.hh"
 
-
-
+//constructor, importing parameters values
 TrackerParametrisation::TrackerParametrisation() : G4VPVParameterisation()
 {
-#include "DetectorParameterDef.icc"
+    #include "DetectorParameterDef.icc"
 }
 
 
+//destructor
 TrackerParametrisation::~TrackerParametrisation()
 {}
 
 
+//compute transformation to place daughter volume
 void TrackerParametrisation::ComputeTransformation(const G4int, G4VPhysicalVolume* physVol) const
 {
     G4ThreeVector origin;
@@ -23,6 +20,7 @@ void TrackerParametrisation::ComputeTransformation(const G4int, G4VPhysicalVolum
 }
 
 
+//compute dimensions of daughter volume
 void TrackerParametrisation::ComputeDimensions(G4Tubs& trackerLayer, const G4int copyNo, const G4VPhysicalVolume*) const
 {
     trackerLayer.SetInnerRadius(ftracker_radius[copyNo]);

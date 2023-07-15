@@ -2,8 +2,10 @@
 #define PRIMARY_GENERATOR_ACTION_HH
 
 #include <map>
-#include "globals.hh"
+
 #include "G4VUserPrimaryGeneratorAction.hh"
+#include "G4Event.hh"
+#include "globals.hh"
 
 #include "HepMCG4AsciiReader.hh"
 

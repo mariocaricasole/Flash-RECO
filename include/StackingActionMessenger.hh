@@ -1,12 +1,14 @@
 #ifndef STACKING_ACTION_MESSENGER_HH
 #define STACKING_ACTION_MESSENGER_HH
 
-class StackingAction;
-class G4UIcmdWithAnInteger;
-class G4UIcmdWithADoubleAndUnit;
-
 #include "G4UImessenger.hh"
+#include "G4UIcmdWithAnInteger.hh"
+#include "G4UIcmdWithADoubleAndUnit.hh"
+#include "G4ios.hh"
 #include "globals.hh"
+
+//dummy class to avoid warnings
+class StackingAction;
 
 class StackingActionMessenger: public G4UImessenger {
 public:

@@ -2,6 +2,7 @@
 #define FIELD_HH
 
 #include "G4MagneticField.hh"
+#include "G4SystemOfUnits.hh"
 #include "globals.hh"
 
 class Field : public G4MagneticField {

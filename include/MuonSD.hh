@@ -2,11 +2,14 @@
 #define MUON_SD_HH
 
 #include "G4VSensitiveDetector.hh"
-#include "MuonHit.hh"
+#include "G4HCofThisEvent.hh"
+#include "G4ios.hh"
+#include "G4Step.hh"
+#include "G4SystemOfUnits.hh"
+#include "G4TouchableHistory.hh"
+#include "G4Track.hh"
 
-class G4Step;
-class G4HCofThisEvent;
-class G4TouchableHistory;
+#include "MuonHit.hh"
 
 class MuonSD : public G4VSensitiveDetector {
 public:

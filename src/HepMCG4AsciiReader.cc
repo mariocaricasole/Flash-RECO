@@ -1,4 +1,5 @@
 #include "HepMCG4AsciiReader.hh"
+#include "HepMCG4AsciiReaderMessenger.hh"
 
 HepMCG4AsciiReader::HepMCG4AsciiReader()
 {

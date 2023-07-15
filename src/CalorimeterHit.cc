@@ -1,19 +1,14 @@
-#include "G4Colour.hh"
-#include "G4LogicalVolume.hh"
-#include "G4VisAttributes.hh"
-#include "G4VVisManager.hh"
 #include "CalorimeterHit.hh"
 
+//defining the allocator
 G4Allocator<CalorimeterHit> CalorimeterHitAllocator;
 
-
+//constructors
 CalorimeterHit::CalorimeterHit() : G4VHit(), fpLogV(NULL)
 {}
 
-
 CalorimeterHit::CalorimeterHit(G4LogicalVolume* logVol, G4int z, G4int phi) : fZCellID(z), fPhiCellID(phi), fpLogV(logVol)
 {}
-
 
 CalorimeterHit::CalorimeterHit(const CalorimeterHit &right) : G4VHit()
 {
@@ -25,11 +20,12 @@ CalorimeterHit::CalorimeterHit(const CalorimeterHit &right) : G4VHit()
     fpLogV = right.fpLogV;
 }
 
-
+//destructor
 CalorimeterHit::~CalorimeterHit()
 {}
 
 
+//assign/compare operators
 const CalorimeterHit& CalorimeterHit::operator=(const CalorimeterHit &right)
 {
     fZCellID = right.fZCellID;
@@ -42,13 +38,13 @@ const CalorimeterHit& CalorimeterHit::operator=(const CalorimeterHit &right)
     return *this;
 }
 
-
 G4bool CalorimeterHit::operator==(const CalorimeterHit &right) const
 {
     return ( (fZCellID == right.fZCellID) && (fPhiCellID == right.fPhiCellID) );
 }
 
 
+//Draw method to show the hits in the interactive mode
 void CalorimeterHit::Draw()
 {
     G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
@@ -67,7 +63,6 @@ void CalorimeterHit::Draw()
         pVVisManager-> Draw(*fpLogV, attribs, trans);
     }
 }
-
 
 void CalorimeterHit::Print()
 {}

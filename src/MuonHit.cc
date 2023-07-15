@@ -1,20 +1,12 @@
 #include "MuonHit.hh"
-#include "G4VVisManager.hh"
-#include "G4Circle.hh"
-#include "G4Colour.hh"
-#include "G4VisAttributes.hh"
 
-
+//defining the allocator
 G4Allocator<MuonHit> MuonHitAllocator;
 
 
+//constructors
 MuonHit::MuonHit() : G4VHit(), fedep(0.), fpos()
 {}
-
-
-MuonHit::~MuonHit()
-{}
-
 
 MuonHit::MuonHit(const MuonHit &right) : G4VHit()
 {
@@ -23,6 +15,12 @@ MuonHit::MuonHit(const MuonHit &right) : G4VHit()
 }
 
 
+//destructor
+MuonHit::~MuonHit()
+{}
+
+
+//assign/compare operators
 const MuonHit& MuonHit::operator=(const MuonHit &right)
 {
     fedep = right.fedep;
@@ -30,13 +28,13 @@ const MuonHit& MuonHit::operator=(const MuonHit &right)
     return *this;
 }
 
-
 G4bool MuonHit::operator==(const MuonHit &right) const
 {
     return (this==&right) ? true : false;
 }
 
 
+//Draw method to show the hits in the interactive mode
 void MuonHit::Draw()
 {
     G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();

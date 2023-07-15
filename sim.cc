@@ -39,21 +39,21 @@ int main(int argc,char** argv)
     G4VUserPrimaryGeneratorAction* gen_action = new PrimaryGeneratorAction;
     runManager->SetUserAction(gen_action);
 
-    /*G4UserRunAction* run_action = new RunAction;
+    G4UserRunAction* run_action = new RunAction;
     runManager->SetUserAction(run_action);
 
     G4UserEventAction* event_action = new EventAction;
     runManager->SetUserAction(event_action);
 
-    G4UserStackingAction* stacking_action = new StackingAction;
+    /*G4UserStackingAction* stacking_action = new StackingAction;
     runManager->SetUserAction(stacking_action);
-
+*/
     G4UserTrackingAction* tracking_action = new TrackingAction;
     runManager->SetUserAction(tracking_action);
 
     G4UserSteppingAction* stepping_action = new SteppingAction;
     runManager->SetUserAction(stepping_action);
-*/
+
     G4UIExecutive *ui = 0;
 
     if(argc==1)

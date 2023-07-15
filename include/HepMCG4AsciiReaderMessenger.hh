@@ -5,8 +5,9 @@
 #include "G4UIcmdWithAString.hh"
 #include "G4UIdirectory.hh"
 
-//dummy declaration, overwritten by actual class
+//dummy class to avoid warnings
 class HepMCG4AsciiReader;
+
 
 class HepMCG4AsciiReaderMessenger : public G4UImessenger
 {

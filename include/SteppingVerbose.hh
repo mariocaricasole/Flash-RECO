@@ -2,6 +2,8 @@
 #define STEPPING_VERBOSE_HH
 
 #include "G4SteppingVerbose.hh"
+#include "G4SteppingManager.hh"
+#include "G4UnitsTable.hh"
 
 class SteppingVerbose;
 
